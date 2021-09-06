@@ -1026,8 +1026,30 @@ bool Arduboy2Base::notPressed(uint8_t buttons)
 
 void Arduboy2Base::pollButtons()
 {
-  previousButtonState = currentButtonState;
+  currentEncoderState = encoder.read();
+  previousEncoderState = currentEncoderState;
+
+  previousButtonState = currentButtonState;  
   currentButtonState = buttonsState();
+}
+
+uint8_t Arduboy2Base::buttonsState()
+{
+  // Start by deferring to the existing implementation.
+  uint8_t buttons = Arduboy2Core::buttonsState();
+
+  // Calculate the encoder difference (the 'delta')
+  int16_t encoderDifference = ((previousEncoderState - currentEncoderState) / encoderSensitivity);
+  
+  // Clockwise
+  if (encoderDifference < 0)
+    buttons |= RIGHT_BUTTON;
+  
+  // Anticlockwise
+  if (encoderDifference > 0)
+    buttons |= LEFT_BUTTON;
+
+  return buttons;
 }
 
 bool Arduboy2Base::justPressed(uint8_t button)

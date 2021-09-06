@@ -221,6 +221,9 @@
 
 #define SPI_SS_PORT PORTB
 #define SPI_SS_BIT PORTB0
+
+constexpr uint8_t encoderPinA = 3;
+constexpr uint8_t encoderPinB = 1;
 // --------------------
 
 // OLED hardware (SSD1306)

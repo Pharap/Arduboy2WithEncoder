@@ -15,6 +15,7 @@
 #include "Sprites.h"
 #include "SpritesB.h"
 #include <Print.h>
+#include <Encoder.h>
 
 /** \brief
  * Library version
@@ -90,6 +91,8 @@
 
 #define CLEAR_BUFFER true /**< Value to be passed to `display()` to clear the screen buffer. */
 
+/// A divisor used to dampen the sensitivity of the rotary encoder.
+constexpr uint8_t encoderSensitivity = 4;
 
 //=============================================
 //========== Rect (rectangle) object ==========
@@ -1063,6 +1066,21 @@ class Arduboy2Base : public Arduboy2Core
   static void pollButtons();
 
   /** \brief
+   * Get the current state of all buttons as a bitmask.
+   *
+   * \return A bitmask of the state of all the buttons.
+   *
+   * \details
+   * The returned mask contains a bit for each button. For any pressed button,
+   * its bit will be 1. For released buttons their associated bits will be 0.
+   *
+   * The following defined mask values should be used for the buttons:
+   *
+   * LEFT_BUTTON, RIGHT_BUTTON, UP_BUTTON, DOWN_BUTTON, A_BUTTON, B_BUTTON
+   */
+  static uint8_t buttonsState();
+
+  /** \brief
    * Check if a button has just been pressed.
    *
    * \param button The button to test for. Only one button should be specified.
@@ -1519,6 +1537,9 @@ class Arduboy2Base : public Arduboy2Core
   static uint8_t thisFrameStart;
   static uint8_t lastFrameDurationMs;
   static bool justRendered;
+  static Encoder encoder(encoderPinA, encoderPinB);
+  static int16_t previousEncoderState;
+  static int16_t currentEncoderState;
 
   // ----- Map of EEPROM addresses for system use-----
 

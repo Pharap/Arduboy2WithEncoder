@@ -196,6 +196,8 @@ void Arduboy2Core::bootPins()
   // Speaker: Not set here. Controlled by audio class
 
 #endif
+  pinMode(encoderPinA, INPUT_PULLUP);
+  pinMode(encoderPinB, INPUT_PULLUP);
 }
 
 void Arduboy2Core::bootOLED()
