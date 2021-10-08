@@ -22,6 +22,10 @@ uint8_t Arduboy2Base::thisFrameStart;
 uint8_t Arduboy2Base::lastFrameDurationMs;
 bool Arduboy2Base::justRendered = false;
 
+Encoder Arduboy2Base::encoder { encoderPinA, encoderPinB };
+int16_t Arduboy2Base::previousEncoderState = 0;
+int16_t Arduboy2Base::currentEncoderState = 0;
+
 // functions called here should be public so users can create their
 // own init functions if they need different behavior than `begin`
 // provides by default.

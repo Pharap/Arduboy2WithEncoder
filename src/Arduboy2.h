@@ -1537,7 +1537,7 @@ class Arduboy2Base : public Arduboy2Core
   static uint8_t thisFrameStart;
   static uint8_t lastFrameDurationMs;
   static bool justRendered;
-  static Encoder encoder(encoderPinA, encoderPinB);
+  static Encoder encoder;
   static int16_t previousEncoderState;
   static int16_t currentEncoderState;
 
